@@ -1,13 +1,18 @@
-# The script of the game goes in this file.
+# Characters
+define d = Character("Diana", color="#258256", image="diana")
+define s = Character("Saynni", color="#00b8cc", image="saynni")
+define sh = Character("Shitij", image="shitij")
+define a = Character("Andy", image="andy")
+define k = Character("Keein", image="keein")
 
-# Declare characters used by this game. The color argument colorizes the
-# name of the character.
-define d = Character(_('Diana'), color="#258256")
-define s = Character(_('Saynni'), color="#00b8cc")
+#Variables
+default cur_loc = "home"
+default has_met.shitij = False
+default has_met.andy = False
+default has_met.keein = False
 
 
 # The game starts here.
-
 label start:
 
     # Show a background. This uses a placeholder by default, but you can
@@ -136,6 +141,76 @@ label goodbyes:
      
     "She may be a dragon, but she is one whose treasure is her heart of gold."
 
-    # This ends the game.
+    scene black
+    
+    "After asking around I learned of some points of interest. Where should I go?"
+    
+    jump nav_menu
 
+label blacksmith:
+    $ cur_loc = "blacksmith"
+    scene bg blacksmith
+    if(has_met.shitij):
+        sh "What do you want? Come back tomorrow morning. Bright and early!"
+    else:
+        d "Hello. Is the blacksmith Shitij here?"
+        sh "I'm sorry, I'm not taking any custom orders right now."
+        d "No, I'm here for the apprenticeship. It was on the Craig's List bulletin back in Ardglass."
+        sh "You should have said so! Good old Craig. We've been friends for decades. Did you know he--"
+        d "Is the position still open?"
+        sh "Indeed it is!"
+        sh "So you think you're good enough to be my apprentice? I'll warn you, many have tried to get this coveted position and failed."
+        d "I'm a quick learner."
+        sh "But do you have the moxie? Let's see what you're capable of!"
+        d "Wait, it's a learning position--"
+        sh "Hop to it!"
+        #todo mini game thing
+        sh "Hmmm... Acceptable."
+        sh "What's your name?"
+        d "Diana."
+        sh "Alright Diana. You have the privelege of being my apprentice. I expect you back here first thing tomorrow."
+        "YES!"
+        $ has_met.shitij = True
+    jump nav_menu
+
+label church:
+    $ cur_loc = "church"
+    scene bg church
+    "This looks less like a church and more like the town meeting hall."
+    "I'm pretty sure this is the town meeting hall."
+    a "Good day!"
+    d "Are you the mayor?"
+    a "What? No! I'm Andy. The mayor is Miss Jundiel. She hasn't been dismissed from the war yet."
+    d "So you're ruling in her place?"
+    a "Well... most of the council had to fight in the war, and there hasn't been a vote for new members yet."
+    a "So you could say I'm one of the three 'rulers' right now."
+    d "Cool thing Mister Ruler. I have some questions."
+    #todo ask questions
+    d "That's all for now. Thank you!"
+    a "I'm always happy to help."
+    jump nav_menu
+
+label library:
+    $ cur_loc = "library"
+    scene bg library
+    "Did someone repurpose their house?"
+    jump nav_menu
+
+label home:
+    $ cur_loc = "home"
+    scene bg cave
+    # This ends the game.
     return
+
+
+menu nav_menu:
+    "Blacksmith." if cur_loc != "blacksmith":
+        jump blacksmith
+    "Church." if cur_loc != "church":
+        jump church
+    "Library." if cur_loc != "library":
+        jump library
+    "Home." if cur_loc != "home":
+        jump home
+
+
