@@ -7,9 +7,9 @@ define k = Character("Keein", image="keein")
 
 #Variables
 default cur_loc = "home"
-default has_met.shitij = False
-default has_met.andy = False
-default has_met.keein = False
+default met_shitij = False
+default met_andy = False
+default met_keein = False
 
 
 # The game starts here.
@@ -150,7 +150,7 @@ label goodbyes:
 label blacksmith:
     $ cur_loc = "blacksmith"
     scene bg blacksmith
-    if not has_met.shitij:
+    if not met_shitij:
         call impressblacksmith
     else:
         sh "Can't get enough of my handsome face? Come back tomorrow morning. Bright and early!"
@@ -172,7 +172,7 @@ label impressblacksmith:
     d "Diana."
     sh "Alright Diana. You have the privelege of being my apprentice. I expect you back here first thing tomorrow."
     "YES!"
-    $ has_met.shitij = True
+    $ met_shitij = True
     return
     
 label forge_axe:
@@ -251,33 +251,72 @@ label forge_axe:
 label church:
     $ cur_loc = "church"
     scene bg church
-    "This looks less like a church and more like the town meeting hall."
-    "I'm pretty sure this is the town meeting hall."
-    a "Good day!"
-    d "Are you the mayor?"
-    a "What? No! I'm Andy. The mayor is Miss Jundiel. She hasn't been dismissed from the war yet."
-    d "So you're ruling in her place?"
-    a "Well... most of the council had to fight in the war, and there hasn't been a vote for new members yet."
-    a "So you could say I'm one of the three 'rulers' right now."
-    d "Cool thing Mister Ruler. I have some questions."
-    #todo ask questions
-    d "That's all for now. Thank you!"
-    a "I'm always happy to help."
-    $ has_met.andy = True
+    if met_andy:
+        a "Hello!"
+        a "Do you need something?"
+    else:
+        "This looks less like a church and more like the town meeting hall."
+        "I'm pretty sure this is the town meeting hall."
+        a "Good day!"
+        d "Are you the mayor?"
+        a "What? No! I'm Andy. The mayor is Miss Jundiel. She hasn't been dismissed from the war yet."
+        d "So you're ruling in her place?"
+        a "Well... most of the council had to fight in the war, and there hasn't been a vote for new members yet."
+        a "So you could say I'm one of the three 'rulers' right now."
+        d "Cool thing Mister Ruler. I have some questions."
+    menu ask_andy:
+        "I was told this was a church.":
+            a "It's a building with many functions."
+            a "One of which is the worship of whatever deities you choose."
+            a "Provided minimal setup is acceptable."
+            jump ask_andy
+        "What do you do?":
+            a "I follow the teachings of Ihwaz and guide people along his path."
+            d "Someone in my unit followed Ihwaz. They were very passive aggressive."
+            a "I suppose that's one way of interpreting his teachings..."
+            d "So you're a priest or something?"
+            a "No, I'm just a passionate follower."
+            d "What do you do all day?"
+            a "I guide people along the path of--"
+            d "So you're a priest."
+            a "...{w} I believe the organized religion around him would take offense to that."
+            a "Call me a counseler if you must."
+            jump ask_andy
+        "The mayor went off to war?":
+            a "Most of the town got recruited. We're not sure who's alive and who's dead."
+            a "But I got a letter from Miss Jundiel last week. She's in the capital. They've started dismissing troops, but hers is still on duty."
+            d "Were you recruited?"
+            a "No. I'm one of the lucky few."
+            jump ask_andy
+        "I got an apprenticeship with the blacksmith today." if met_shitij:
+            a "You did? That's exciting!"
+            a "He's been trying to find somebody for a while now."
+            a "He's rather picky. I wonder what you did to impress him."
+            d "Everyone's got their little secrets!"
+            jump ask_andy
+        "That's all.":
+            d "That's all for now. Thank you!"
+            a "I'm always happy to help."
+    $ met_andy = True
     jump nav_menu
 
 label library:
     $ cur_loc = "library"
     scene bg library
     "Did someone repurpose their house?"
+    $ met_keein = True
     jump nav_menu
 
 label home:
     $ cur_loc = "home"
     scene bg cave
-    "Looks like Saynni isn't back yet."
-    "There's not much to do around here. I'll head back to town."
-    jump nav_menu
+    if met_shitij and met_andy:
+        d "I picked up some wildflowers."
+        return
+    else:
+        "Looks like Saynni isn't back yet."
+        "There's not much to do around here. I'll head back to town."
+        jump nav_menu
 
 
 menu nav_menu:
