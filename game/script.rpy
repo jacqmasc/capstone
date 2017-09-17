@@ -47,7 +47,7 @@ label start:
     
     s "I would much rather stay here until you know for sure."
     
-    "Saynii seems much too anxious to head out from our new home."
+    "Saynni seems much too anxious to head out from our new home."
     
     "I know this may look like just a cave, but I know Saynni."
     
@@ -150,28 +150,103 @@ label goodbyes:
 label blacksmith:
     $ cur_loc = "blacksmith"
     scene bg blacksmith
-    if(has_met.shitij):
-        sh "What do you want? Come back tomorrow morning. Bright and early!"
+    if not has_met.shitij:
+        call impressblacksmith
     else:
-        d "Hello. Is the blacksmith Shitij here?"
-        sh "I'm sorry, I'm not taking any custom orders right now."
-        d "No, I'm here for the apprenticeship. It was on the Craig's List bulletin back in Ardglass."
-        sh "You should have said so! Good old Craig. We've been friends for decades. Did you know he--"
-        d "Is the position still open?"
-        sh "Indeed it is!"
-        sh "So you think you're good enough to be my apprentice? I'll warn you, many have tried to get this coveted position and failed."
-        d "I'm a quick learner."
-        sh "But do you have the moxie? Let's see what you're capable of!"
-        d "Wait, it's a learning position--"
-        sh "Hop to it!"
-        #todo mini game thing
-        sh "Hmmm... Acceptable."
-        sh "What's your name?"
-        d "Diana."
-        sh "Alright Diana. You have the privelege of being my apprentice. I expect you back here first thing tomorrow."
-        "YES!"
-        $ has_met.shitij = True
+        sh "Can't get enough of my handsome face? Come back tomorrow morning. Bright and early!"
     jump nav_menu
+
+label impressblacksmith:
+    d "Hello. Is the blacksmith Shitij here?"
+    sh "I'm sorry, I'm not taking any custom orders right now."
+    d "No, I'm here for the apprenticeship. It was on the Craig's List bulletin back in Ardglass."
+    sh "You should have said so! Good old Craig. We've been friends for decades. Did you know he--"
+    d "Is the position still open?"
+    sh "Indeed it is!"
+    sh "So you think you're good enough to be my apprentice? I'll warn you, many have tried to get this coveted position and failed."
+    d "I'm a quick learner."
+    sh "But do you have the moxie? Let's see what you're capable of!"
+    d "Wait, it's a learning position--"
+    call forge_axe
+    sh "What's your name?"
+    d "Diana."
+    sh "Alright Diana. You have the privelege of being my apprentice. I expect you back here first thing tomorrow."
+    "YES!"
+    $ has_met.shitij = True
+    return
+    
+label forge_axe:
+    $ axepoints = 0
+    $ safetyfirst = False
+    $ dinner = False
+    sh "Let's see how you make an axe. Forge me an axe head."
+    menu forge_axe1:
+        "It looks like the forge is already lit, so I'm going to..."
+        "Make dinner." if not dinner:
+            $ dinner = True
+            $ axepoints -= 1
+            d "The oven's ready. Time to cook!"
+            sh "It's not for food!"
+            jump forge_axe1
+        "Melt metal into a block.":
+            $ axepoints += 2
+            sh "Ha! I half expect you to start mining the metal yourself."
+            sh "There's some heated blocks in the forge you can use."
+        "Heat metal.":
+            $ axepoints += 1
+            sh "Good job! Some metal is already heated in the forge."
+        "Safety first!" if not safetyfirst:
+            $ axepoints += 1
+            $ safetyfirst = True
+            "I put on gloves, safety goggles, and an apron."
+            sh "That is quite important."
+            jump forge_axe1
+    if not safetyfirst:
+        d "Hold up. I better put on gloves before I touch this stuff."
+    menu:
+        "I have a heated block of metal. Now I'll..."
+        "Stab it a bunch.":
+            $ axepoints += 1
+            "I'm good at that. I've stabbed lots of things."
+            "I pull out my knife but Shitij stops me and hands me a dull, pointed tool."
+        "Cool it off.":
+            $ axepoints -= 1
+            "Wait, isn't metal more malleable when it's heated?"
+            "I'm pretty sure I need to shape this thing."
+            "I'll try putting a hole in it for the handle."
+    "I attack one side of the metal to wear a hole through it."
+    menu forge_axe2:
+        "Phew, that's done. What's next?"
+        "Tape the head to a stick.":
+            $ axepoints -= 2
+            d "Hey, do you have any tape?"
+            sh "..."
+            d "So I can put this on a stick."
+            sh "...{w} Have you ever seen an axe before?"
+        "Dinner?" if dinner:
+            $ dinner = False
+            $ axepoints -= 1
+            "I'm so hungry."
+            "I wonder if Saynni's back home yet."
+            sh "Stop daydreaming!"
+            "Crap!"
+            jump forge_axe2
+        "Hammer head.":
+            $ axepoints += 1
+            "I use a hammer to flatten the other side of the block."
+            "This takes forever!"
+    d "There! I'm done!"
+    "The metal is lopsided and I don't think the hole for the handle is straight."
+    sh "Hmmm...."
+    if axepoints == 5:
+        sh "Fantastic!"
+    elif axepoints > 0:
+        sh "Acceptable."
+    else:
+        sh "You tried."
+    return
+
+
 
 label church:
     $ cur_loc = "church"
@@ -188,6 +263,7 @@ label church:
     #todo ask questions
     d "That's all for now. Thank you!"
     a "I'm always happy to help."
+    $ has_met.andy = True
     jump nav_menu
 
 label library:
@@ -199,8 +275,9 @@ label library:
 label home:
     $ cur_loc = "home"
     scene bg cave
-    # This ends the game.
-    return
+    "Looks like Saynni isn't back yet."
+    "There's not much to do around here. I'll head back to town."
+    jump nav_menu
 
 
 menu nav_menu:
