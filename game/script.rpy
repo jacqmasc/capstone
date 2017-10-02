@@ -5,7 +5,10 @@ define sh = Character("Shitij", image="shitij")
 define a = Character("Andy", image="andy")
 define k = Character("Keein", image="keein")
 
-#Variables
+# Portraits
+image diana happy = Portrait("diana happy portrait.png", eyepos=(36, 99), moupos=(36,99), speaker="diana")
+
+# Variables
 default cur_loc = "home"
 default met_shitij = False
 default met_andy = False
@@ -170,7 +173,7 @@ label impressblacksmith:
     call forge_axe
     sh "What's your name?"
     d "Diana."
-    sh "Alright Diana. You have the privelege of being my apprentice. I expect you back here first thing tomorrow."
+    sh "Alright Diana. You have the privelige of being my apprentice. I expect you back here first thing tomorrow."
     "YES!"
     $ met_shitij = True
     return
