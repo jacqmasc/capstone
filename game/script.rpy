@@ -151,7 +151,7 @@ label blacksmith:
     $ cur_loc = "blacksmith"
     scene bg blacksmith
     if not met_shitij:
-        call impressblacksmith
+        call impressblacksmith from _call_impressblacksmith
     else:
         sh "Can't get enough of my handsome face? Come back tomorrow morning. Bright and early!"
     jump nav_menu
@@ -167,7 +167,7 @@ label impressblacksmith:
     d "I'm a quick learner."
     sh "But do you have the moxie? Let's see what you're capable of!"
     d "Wait, it's a learning position--"
-    call forge_axe
+    call forge_axe from _call_forge_axe
     sh "What's your name?"
     d "Diana."
     sh "Alright Diana. You have the privelege of being my apprentice. I expect you back here first thing tomorrow."
