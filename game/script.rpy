@@ -163,6 +163,7 @@ label blacksmith:
     jump nav_menu
 
 label impressblacksmith:
+    show diana happy at left
     d "Hello. Is the blacksmith Shitij here?"
     sh "I'm sorry, I'm not taking any custom orders right now."
     d "No, I'm here for the apprenticeship. It was on the Craig's List bulletin back in Ardglass."
@@ -176,7 +177,7 @@ label impressblacksmith:
     call forge_axe from _call_forge_axe
     sh "What's your name?"
     d "Diana."
-    sh "Alright Diana. You have the privelige of being my apprentice. I expect you back here first thing tomorrow."
+    sh "Alright Diana. You have the privilege of being my apprentice. I expect you back here first thing tomorrow."
     "YES!"
     $ met_shitij = True
     return
@@ -233,7 +234,7 @@ label forge_axe:
             $ dinner = False
             $ axepoints -= 1
             "I'm so hungry."
-            "I wonder if Saynni's back home yet."
+            "I wonder what Saynni wants to eat tonight?"
             sh "Stop daydreaming!"
             "Crap!"
             jump forge_axe2
@@ -258,9 +259,11 @@ label church:
     $ cur_loc = "church"
     scene bg church
     if met_andy:
+        show diana happy at left
         a "Hello!"
         a "Do you need something?"
     else:
+        show diana happy at left
         "This looks less like a church and more like the town meeting hall."
         "I'm pretty sure this is the town meeting hall."
         a "Good day!"
@@ -309,6 +312,7 @@ label church:
 label library:
     $ cur_loc = "library"
     scene bg library
+    show diana happy at left
     "Did someone repurpose their house?"
     "The sign outside said this was a library, but it looks more like a used book store..."
     $ met_keein = True
