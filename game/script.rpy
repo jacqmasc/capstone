@@ -4,6 +4,9 @@ define s = Character("Saynni", color="#00b8cc", image="saynni")
 define sh = Character("Shitij", image="shitij")
 define a = Character("Andy", image="andy")
 define k = Character("Keein", image="keein")
+define ki = Character("Kioli", image="kioli")
+define b = Character("Baethas", image="baethas")
+define z = Character("Zhaleh", image="zhaleh")
 
 # Portraits
 image diana happy = Portrait("diana happy portrait.png", eyepos=(36, 99), moupos=(36,99), speaker="diana")
@@ -307,6 +310,7 @@ label library:
     $ cur_loc = "library"
     scene bg library
     "Did someone repurpose their house?"
+    "The sign outside said this was a library, but it looks more like a used book store..."
     $ met_keein = True
     jump nav_menu
 
@@ -317,7 +321,7 @@ label home:
         d "I picked up some wildflowers."
         return
     else:
-        "Looks like Saynni isn't back yet."
+        "Looks like Saynni is asleep."
         "There's not much to do around here. I'll head back to town."
         jump nav_menu
 
