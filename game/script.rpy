@@ -4,8 +4,14 @@ define s = Character("Saynni", color="#00b8cc", image="saynni")
 define sh = Character("Shitij", image="shitij")
 define a = Character("Andy", image="andy")
 define k = Character("Keein", image="keein")
+define ki = Character("Kioli", image="kioli")
+define b = Character("Baethas", image="baethas")
+define z = Character("Zhaleh", image="zhaleh")
 
-#Variables
+# Portraits
+image diana happy = Portrait("diana happy portrait.png", eyepos=(36, 99), moupos=(36,99), speaker="diana")
+
+# Variables
 default cur_loc = "home"
 default met_shitij = False
 default met_andy = False
@@ -151,12 +157,13 @@ label blacksmith:
     $ cur_loc = "blacksmith"
     scene bg blacksmith
     if not met_shitij:
-        call impressblacksmith
+        call impressblacksmith from _call_impressblacksmith
     else:
         sh "Can't get enough of my handsome face? Come back tomorrow morning. Bright and early!"
     jump nav_menu
 
 label impressblacksmith:
+    show diana happy at left
     d "Hello. Is the blacksmith Shitij here?"
     sh "I'm sorry, I'm not taking any custom orders right now."
     d "No, I'm here for the apprenticeship. It was on the Craig's List bulletin back in Ardglass."
@@ -167,10 +174,10 @@ label impressblacksmith:
     d "I'm a quick learner."
     sh "But do you have the moxie? Let's see what you're capable of!"
     d "Wait, it's a learning position--"
-    call forge_axe
+    call forge_axe from _call_forge_axe
     sh "What's your name?"
     d "Diana."
-    sh "Alright Diana. You have the privelege of being my apprentice. I expect you back here first thing tomorrow."
+    sh "Alright Diana. You have the privilege of being my apprentice. I expect you back here first thing tomorrow."
     "YES!"
     $ met_shitij = True
     return
@@ -227,7 +234,7 @@ label forge_axe:
             $ dinner = False
             $ axepoints -= 1
             "I'm so hungry."
-            "I wonder if Saynni's back home yet."
+            "I wonder what Saynni wants to eat tonight?"
             sh "Stop daydreaming!"
             "Crap!"
             jump forge_axe2
@@ -252,9 +259,11 @@ label church:
     $ cur_loc = "church"
     scene bg church
     if met_andy:
+        show diana happy at left
         a "Hello!"
         a "Do you need something?"
     else:
+        show diana happy at left
         "This looks less like a church and more like the town meeting hall."
         "I'm pretty sure this is the town meeting hall."
         a "Good day!"
@@ -303,7 +312,9 @@ label church:
 label library:
     $ cur_loc = "library"
     scene bg library
+    show diana happy at left
     "Did someone repurpose their house?"
+    "The sign outside said this was a library, but it looks more like a used book store..."
     $ met_keein = True
     jump nav_menu
 
@@ -314,7 +325,7 @@ label home:
         d "I picked up some wildflowers."
         return
     else:
-        "Looks like Saynni isn't back yet."
+        "Looks like Saynni is asleep."
         "There's not much to do around here. I'll head back to town."
         jump nav_menu
 
