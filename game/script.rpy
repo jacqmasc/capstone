@@ -260,10 +260,12 @@ label church:
     scene bg church
     if met_andy:
         show diana happy at left
+        show andy happy at right
         a "Hello!"
         a "Do you need something?"
     else:
         show diana happy at left
+        show andy happy at right
         "This looks less like a church and more like the town meeting hall."
         "I'm pretty sure this is the town meeting hall."
         a "Good day!"
