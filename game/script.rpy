@@ -1,7 +1,7 @@
 # Characters
 define d = Character("Diana", color="#258256", image="diana")
 define s = Character("Saynni", color="#00b8cc", image="saynni")
-define sh = Character("Shitij", image="shitij")
+define v = Character("Vihaan", image="vihaan")
 define a = Character("Andy", image="andy")
 define k = Character("Keein", image="keein")
 define ki = Character("Kioli", image="kioli")
@@ -147,7 +147,7 @@ label goodbyes:
      
     "She may be a dragon, but she is one whose treasure is her heart of gold."
 
-    scene black
+    scene white
     
     "After asking around I learned of some points of interest. Where should I go?"
     
@@ -164,21 +164,21 @@ label blacksmith:
 
 label impressblacksmith:
     show diana happy at left
-    d "Hello. Is the blacksmith Shitij here?"
-    sh "I'm sorry, I'm not taking any custom orders right now."
+    d "Hello. Is the blacksmith Vihaan here?"
+    v "I'm sorry, I'm not taking any custom orders right now."
     d "No, I'm here for the apprenticeship. It was on the Craig's List bulletin back in Ardglass."
-    sh "You should have said so! Good old Craig. We've been friends for decades. Did you know he--"
+    v "You should have said so! Good old Craig. We've been friends for decades. Did you know he--"
     d "Is the position still open?"
-    sh "Indeed it is!"
-    sh "So you think you're good enough to be my apprentice? I'll warn you, many have tried to get this coveted position and failed."
+    v "Indeed it is!"
+    v "So you think you're good enough to be my apprentice? I'll warn you, many have tried to get this coveted position and failed."
     d "I'm a quick learner."
-    sh "But do you have the moxie? Let's see what you're capable of!"
+    v "But do you have the moxie? Let's see what you're capable of!"
     d "Wait, it's a learning position--"
     call forge_axe from _call_forge_axe
-    sh "What's your name?"
+    v "What's your name?"
     d "Diana."
-    sh "Alright Diana. You have the privilege of being my apprentice. I expect you back here first thing tomorrow."
-    "YES!"
+    v "Alright Diana. You have the privilege of being my apprentice. I expect you back here first thing tomorrow."
+    "Understood!"
     $ met_shitij = True
     return
     
@@ -186,27 +186,27 @@ label forge_axe:
     $ axepoints = 0
     $ safetyfirst = False
     $ dinner = False
-    sh "Let's see how you make an axe. Forge me an axe head."
+    v "Let's see how you make an axe. Forge me an axe head."
     menu forge_axe1:
         "It looks like the forge is already lit, so I'm going to..."
         "Make dinner." if not dinner:
             $ dinner = True
             $ axepoints -= 1
             d "The oven's ready. Time to cook!"
-            sh "It's not for food!"
+            v "It's not for food!"
             jump forge_axe1
         "Melt metal into a block.":
             $ axepoints += 2
-            sh "Ha! I half expect you to start mining the metal yourself."
-            sh "There's some heated blocks in the forge you can use."
+            v "Ha! I half expect you to start mining the metal yourself."
+            v "There's some heated blocks in the forge you can use."
         "Heat metal.":
             $ axepoints += 1
-            sh "Good job! Some metal is already heated in the forge."
+            v "Good job! Some metal is already heated in the forge."
         "Safety first!" if not safetyfirst:
             $ axepoints += 1
             $ safetyfirst = True
             "I put on gloves, safety goggles, and an apron."
-            sh "That is quite important."
+            v "That is quite important."
             jump forge_axe1
     if not safetyfirst:
         d "Hold up. I better put on gloves before I touch this stuff."
@@ -227,15 +227,15 @@ label forge_axe:
         "Tape the head to a stick.":
             $ axepoints -= 2
             d "Hey, do you have any tape?"
-            sh "..."
+            v "..."
             d "So I can put this on a stick."
-            sh "...{w} Have you ever seen an axe before?"
+            v "...{w} Have you ever seen an axe before?"
         "Dinner?" if dinner:
             $ dinner = False
             $ axepoints -= 1
             "I'm so hungry."
             "I wonder what Saynni wants to eat tonight?"
-            sh "Stop daydreaming!"
+            v "Stop daydreaming!"
             "Crap!"
             jump forge_axe2
         "Hammer head.":
@@ -244,13 +244,13 @@ label forge_axe:
             "This takes forever!"
     d "There! I'm done!"
     "The metal is lopsided and I don't think the hole for the handle is straight."
-    sh "Hmmm...."
+    v "Hmmm...."
     if axepoints == 5:
-        sh "Fantastic!"
+        v "Fantastic!"
     elif axepoints > 0:
-        sh "Acceptable."
+        v "Acceptable."
     else:
-        sh "You tried."
+        v "You tried."
     return
 
 
@@ -260,10 +260,12 @@ label church:
     scene bg church
     if met_andy:
         show diana happy at left
+        show andy happy at right
         a "Hello!"
         a "Do you need something?"
     else:
         show diana happy at left
+        show andy happy at right
         "This looks less like a church and more like the town meeting hall."
         "I'm pretty sure this is the town meeting hall."
         a "Good day!"
