@@ -1,6 +1,6 @@
 # Characters
-define d = Character("Diana", color="#258256", image="diana")
-define s = Character("Saynni", color="#00b8cc", image="saynni")
+define d = Character("Diana", image="diana")
+define s = Character("Saynni", image="saynni")
 define v = Character("Vihaan", image="vihaan")
 define a = Character("Andy", image="andy")
 define k = Character("Keein", image="keein")
@@ -9,7 +9,6 @@ define b = Character("Baethas", image="baethas")
 define z = Character("Zhaleh", image="zhaleh")
 
 # Portraits
-image diana happy = Portrait("diana happy portrait.png", eyepos=(36, 99), moupos=(36,99), speaker="diana")
 
 # Variables
 default cur_loc = "home"
@@ -137,6 +136,8 @@ label goodbyes:
     
     "With our goodbyes said, I head out from the darkness of our new home and squint due to the brightness of the sun."
     
+    scene white
+    
     "Once I am able to see, I look out towards where the village lies ahead."
     
     "Saynni and I's home is not too far from the village."
@@ -146,8 +147,6 @@ label goodbyes:
     "First, I will have to prove my own worth to them. Eventually, I hope that they can trust me enough to accept us both."
      
     "She may be a dragon, but she is one whose treasure is her heart of gold."
-
-    scene white
     
     "After asking around I learned of some points of interest. Where should I go?"
     
@@ -159,11 +158,13 @@ label blacksmith:
     if not met_shitij:
         call impressblacksmith from _call_impressblacksmith
     else:
+        show shitij nuetral at right
         sh "Can't get enough of my handsome face? Come back tomorrow morning. Bright and early!"
     jump nav_menu
 
 label impressblacksmith:
     show diana happy at left
+    show shitij nuetral at right
     d "Hello. Is the blacksmith Vihaan here?"
     v "I'm sorry, I'm not taking any custom orders right now."
     d "No, I'm here for the apprenticeship. It was on the Craig's List bulletin back in Ardglass."
@@ -215,7 +216,7 @@ label forge_axe:
         "Stab it a bunch.":
             $ axepoints += 1
             "I'm good at that. I've stabbed lots of things."
-            "I pull out my knife but Shitij stops me and hands me a dull, pointed tool."
+            "I pull out my knife but Vihaan stops me and hands me a dull, pointed tool."
         "Cool it off.":
             $ axepoints -= 1
             "Wait, isn't metal more malleable when it's heated?"
@@ -264,6 +265,7 @@ label church:
         a "Hello!"
         a "Do you need something?"
     else:
+        scene bg church
         show diana happy at left
         show andy happy at right
         "This looks less like a church and more like the town meeting hall."
