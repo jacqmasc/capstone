@@ -31,6 +31,8 @@ label start:
     # directory.
 
     show diana happy at left
+    
+    play music "roots.mp3"
 
     "This is it. Our new home. Saynni is here with me, but she seems... Uncomfortable."
     
@@ -40,9 +42,34 @@ label start:
 
     s "Perhaps I should just stay inside!"
     
-    d "They saw you for only a moment! I am sure they will warm up to you in time."
+    menu:
+        
+        "They saw you for only a moment!":
+            jump moment
+            
+        "I'm sure they will warm up to you in time.":
+            jump warm
+            
+            
+label moment:
+    
+    d "They saw you for only a moment!"
+    
+    s "A moment is enough for them to know I am a dragon."
+    
+    s "What I am is not exactly subtle."
+    
+    s "Even if the war is over..."
+    
+    jump nobattles
+    
+label warm:
+    
+    d "I'm sure they will warm up to you in time"
     
     s "I doubt that. The war only recently came to an end..."
+    
+label nobattles:
     
     s "They must still despise dragons."
     
@@ -134,13 +161,15 @@ label goodbyes:
     
     hide saynni
     
+    stop music fadeout 1.0
+    
     "With our goodbyes said, I head out from the darkness of our new home and squint due to the brightness of the sun."
     
-    scene white
+    scene black
     
     "Once I am able to see, I look out towards where the village lies ahead."
     
-    "Saynni and I's home is not too far from the village."
+    "Our home is not too far from the village."
     
     "As I make my way towards it... I can't help but wonder if I will be able to convince those within that Saynni means no harm."
     
@@ -155,6 +184,7 @@ label goodbyes:
 label blacksmith:
     $ cur_loc = "blacksmith"
     scene bg blacksmith
+    play music "rainyascent.mp3"
     if not met_shitij:
         call impressblacksmith from _call_impressblacksmith
     else:
@@ -181,6 +211,7 @@ label impressblacksmith:
     v "Alright Diana. You have the privilege of being my apprentice. I expect you back here first thing tomorrow."
     "Understood!"
     $ met_shitij = True
+    stop music fadeout 1.0
     return
     
 label forge_axe:
@@ -259,6 +290,7 @@ label forge_axe:
 label church:
     $ cur_loc = "church"
     scene bg church
+    play music "hiddengrotto.mp3"
     if met_andy:
         show diana happy at left
         show andy happy at right
@@ -311,26 +343,60 @@ label church:
             d "That's all for now. Thank you!"
             a "I'm always happy to help."
     $ met_andy = True
+    stop music fadeout 1.0
     jump nav_menu
 
 label library:
     $ cur_loc = "library"
     scene bg library
+    play music "homedeparture.mp3"
     show diana happy at left
     "Did someone repurpose their house?"
     "The sign outside said this was a library, but it looks more like a used book store..."
+    "There are a few people quietly reading their books. Oh! My presence seems to have gotten someone's attention."
+    show librarian nuetral at right
+    ki "..."
+    ki "... A face I do not recognize."
+    ki "Welcome to the library, are you a traveller? It has been some time since anyone new has been here."
+    d "I'm here to stay! I just moved in with my wife today, actually --"
+    "My louder, more booming voice seems to startle a few people in the area. Specifically, a man at a table beside ours."
+    hide librarian
+    show keein nuetral at right
+    k "Excuse me."
+    k "This is a library, you should really keep your voice down."
+    d "Right. My apologies, I was just excited to meet my new neighbors."
+    k "You are the one with the dragon then, are you not?"
+    "His announcement has a few heads lifting from their books to stare at me."
+    "Before I can open my mouth to make a remark, the person from before interrupts."
+    hide keein
+    show librarian nuetral at right
+    ki "... Keein. This is a library, do not make a scene."
+    hide librarian nuetral
+    show keein nuetral at right
+    k "..."
+    hide keein nuetral
+    "He doesn't look happy about being interrupted, but he doesn't argue. He simply takes his book and heads towards the desk to check it out."
+    show librarian nuetral at right
+    ki "... That was Keein. He is our resident wizard. He is usually like that."
+    ki "I am Kioli. I am the head librarian, so even he has to listen to me here."
+    d "I see..."
+    "I keep my voice quieter than earlier, and eventually the others in the library go back to their books."
+    hide librarian
+    
     $ met_keein = True
+    stop music fadeout 1.0
     jump nav_menu
 
 label home:
     $ cur_loc = "home"
     scene bg cave
+    play music "roots.mp3"
     if met_shitij and met_andy:
         d "I picked up some wildflowers."
         return
     else:
-        "Looks like Saynni is asleep."
-        "There's not much to do around here. I'll head back to town."
+        "Looks like Saynni is asleep..."
+        "There's not much to do around here until she is awake. I'll head back to town."
         jump nav_menu
 
 
