@@ -32,9 +32,8 @@ label start:
 
     show diana happy at left
     
-    play music "roots.mp3"
 
-    "This is it. Our new home. Saynni is here with me, but she seems... Uncomfortable."
+    "{i}This is it. Our new home. Saynni is here with me, but she seems... Uncomfortable.{/i}"
     
     show saynni nuetral at right
 
@@ -79,13 +78,13 @@ label nobattles:
     
     s "I would much rather stay here until you know for sure."
     
-    "Saynni seems much too anxious to head out from our new home."
+    "{i}Saynni seems much too anxious to head out from our new home.{/i}"
     
-    "I know this may look like just a cave, but I know Saynni."
+    "{i}I know this may look like just a cave, but I know Saynni.{/i}"
     
-    "This will not look like 'just a cave' once we are able to settle in."
+    "{i}This will not look like 'just a cave' once we are able to settle in.{/i}"
     
-    "I just need to get Saynni comfortable enough to do that..."
+    "{i}I just need to get Saynni comfortable enough to do that...{/i}"
     
     d "Would you feel better if I head out before you?"
     
@@ -97,11 +96,11 @@ label nobattles:
     
     s "It's not my fault there's so little magic here I keep losing signal!"
     
-    "I let out a sigh, but it's probably for the best that my wife remains where she feels safe."
+    "{i}I let out a sigh, but it's probably for the best that my wife remains where she feels safe.{/i}"
     
     d "All right, all right! You can stay home for now."
     
-    "Saynni seems happy to hear that, but she also has that look on her face that tells me she has a question to ask before I head out."
+    "{i}Saynni seems happy to hear that, but she also has that look on her face that tells me she has a question to ask before I head out.{/i}"
     
     s "I have been thinking about how to decorate our home. Flowers or skulls?"
     
@@ -135,7 +134,7 @@ label skulls:
     
     d "Anyway, we threw out our trophies before we got married..."
     
-    "It was symbolic. Throwing away the achievements from our past for our future together in peace."
+    "{i}It was symbolic. Throwing away the achievements from our past for our future together in peace.{/i}"
     
     s "The war is over. No point in still having them."
     
@@ -161,30 +160,28 @@ label goodbyes:
     
     hide saynni
     
-    stop music fadeout 1.0
     
-    "With our goodbyes said, I head out from the darkness of our new home and squint due to the brightness of the sun."
+    "{i}With our goodbyes said, I head out from the darkness of our new home and squint due to the brightness of the sun.{/i}"
     
     scene black
     
-    "Once I am able to see, I look out towards where the village lies ahead."
+    "[i]Once I am able to see, I look out towards where the village lies ahead.{/i}"
     
-    "Our home is not too far from the village."
+    "{i}Our home is not too far from the village.{/i}"
     
-    "As I make my way towards it... I can't help but wonder if I will be able to convince those within that Saynni means no harm."
+    "{i}As I make my way towards it... I can't help but wonder if I will be able to convince those within that Saynni means no harm.{/i}"
     
-    "First, I will have to prove my own worth to them. Eventually, I hope that they can trust me enough to accept us both."
+    "{i}First, I will have to prove my own worth to them. Eventually, I hope that they can trust me enough to accept us both.{/i}"
      
-    "She may be a dragon, but she is one whose treasure is her heart of gold."
+    "{i}She may be a dragon, but she is one whose treasure is her heart of gold.{/i}"
     
-    "After asking around I learned of some points of interest. Where should I go?"
+    "{i}After asking around I learned of some points of interest. Where should I go?{/i}"
     
     jump nav_menu
 
 label blacksmith:
     $ cur_loc = "blacksmith"
     scene bg blacksmith
-    play music "rainyascent.mp3"
     if not met_shitij:
         call impressblacksmith from _call_impressblacksmith
     else:
@@ -209,9 +206,8 @@ label impressblacksmith:
     v "What's your name?"
     d "Diana."
     v "Alright Diana. You have the privilege of being my apprentice. I expect you back here first thing tomorrow."
-    "Understood!"
+    d "Understood!"
     $ met_shitij = True
-    stop music fadeout 1.0
     return
     
 label forge_axe:
@@ -220,7 +216,7 @@ label forge_axe:
     $ dinner = False
     v "Let's see how you make an axe. Forge me an axe head."
     menu forge_axe1:
-        "It looks like the forge is already lit, so I'm going to..."
+        "{i}It looks like the forge is already lit, so I'm going to...{/i}"
         "Make dinner." if not dinner:
             $ dinner = True
             $ axepoints -= 1
@@ -237,17 +233,17 @@ label forge_axe:
         "Safety first!" if not safetyfirst:
             $ axepoints += 1
             $ safetyfirst = True
-            "I put on gloves, safety goggles, and an apron."
+            "{i}I put on gloves, safety goggles, and an apron.{/i}"
             v "That is quite important."
             jump forge_axe1
     if not safetyfirst:
         d "Hold up. I better put on gloves before I touch this stuff."
     menu:
-        "I have a heated block of metal. Now I'll..."
+        "{i}I have a heated block of metal. Now I'll...{/i}"
         "Stab it a bunch.":
             $ axepoints += 1
-            "I'm good at that. I've stabbed lots of things."
-            "I pull out my knife but Vihaan stops me and hands me a dull, pointed tool."
+            "{i}I'm good at that. I've stabbed lots of things.{/i}"
+            "{i}I pull out my knife but Vihaan stops me and hands me a dull, pointed tool.{/i}"
         "Cool it off.":
             $ axepoints -= 1
             "Wait, isn't metal more malleable when it's heated?"
@@ -290,7 +286,6 @@ label forge_axe:
 label church:
     $ cur_loc = "church"
     scene bg church
-    play music "hiddengrotto.mp3"
     if met_andy:
         show diana happy at left
         show andy happy at right
@@ -300,8 +295,8 @@ label church:
         scene bg church
         show diana happy at left
         show andy happy at right
-        "This looks less like a church and more like the town meeting hall."
-        "I'm pretty sure this is the town meeting hall."
+        "{i}This looks less like a church and more like the town meeting hall.{/i}"
+        "{i}I'm pretty sure this is the town meeting hall.{/i}"
         a "Good day!"
         d "Are you the mayor?"
         a "What? No! I'm Andy. The mayor is Miss Jundiel. She hasn't been dismissed from the war yet."
@@ -343,31 +338,29 @@ label church:
             d "That's all for now. Thank you!"
             a "I'm always happy to help."
     $ met_andy = True
-    stop music fadeout 1.0
     jump nav_menu
 
 label library:
     $ cur_loc = "library"
     scene bg library
-    play music "homedeparture.mp3"
     show diana happy at left
-    "Did someone repurpose their house?"
-    "The sign outside said this was a library, but it looks more like a used book store..."
-    "There are a few people quietly reading their books. Oh! My presence seems to have gotten someone's attention."
+    "{i}Did someone repurpose their house?{/i}"
+    "{i}The sign outside said this was a library, but it looks more like a used book store...{/i}"
+    "{i}There are a few people quietly reading their books. Oh! My presence seems to have gotten someone's attention.{/i}"
     show librarian nuetral at right
     ki "..."
     ki "... A face I do not recognize."
     ki "Welcome to the library, are you a traveller? It has been some time since anyone new has been here."
     d "I'm here to stay! I just moved in with my wife today, actually --"
-    "My louder, more booming voice seems to startle a few people in the area. Specifically, a man at a table beside ours."
+    "{i}My louder, more booming voice seems to startle a few people in the area. Specifically, a man at a table beside ours.{/i}"
     hide librarian
     show keein nuetral at right
     k "Excuse me."
     k "This is a library, you should really keep your voice down."
     d "Right. My apologies, I was just excited to meet my new neighbors."
     k "You are the one with the dragon then, are you not?"
-    "His announcement has a few heads lifting from their books to stare at me."
-    "Before I can open my mouth to make a remark, the person from before interrupts."
+    "{i}His announcement has a few heads lifting from their books to stare at me.{/i}"
+    "{i}Before I can open my mouth to make a remark, the person from before interrupts.{/i}"
     hide keein
     show librarian nuetral at right
     ki "... Keein. This is a library, do not make a scene."
@@ -375,28 +368,26 @@ label library:
     show keein nuetral at right
     k "..."
     hide keein nuetral
-    "He doesn't look happy about being interrupted, but he doesn't argue. He simply takes his book and heads towards the desk to check it out."
+    "{i}He doesn't look happy about being interrupted, but he doesn't argue. He simply takes his book and heads towards the desk to check it out.{/i}"
     show librarian nuetral at right
     ki "... That was Keein. He is our resident wizard. He is usually like that."
     ki "I am Kioli. I am the head librarian, so even he has to listen to me here."
     d "I see..."
-    "I keep my voice quieter than earlier, and eventually the others in the library go back to their books."
+    "{i}I keep my voice quieter than earlier, and eventually the others in the library go back to their books.{/i}"
     hide librarian
     
     $ met_keein = True
-    stop music fadeout 1.0
     jump nav_menu
 
 label home:
     $ cur_loc = "home"
     scene bg cave
-    play music "roots.mp3"
     if met_shitij and met_andy:
         d "I picked up some wildflowers."
         return
     else:
-        "Looks like Saynni is asleep..."
-        "There's not much to do around here until she is awake. I'll head back to town."
+        "{i}Looks like Saynni is asleep...{/i}"
+        "{i}There's not much to do around here until she is awake. I'll head back to town.{/i}"
         jump nav_menu
 
 
