@@ -165,7 +165,7 @@ label goodbyes:
     
     scene black
     
-    "[i]Once I am able to see, I look out towards where the village lies ahead.{/i}"
+    "{i}Once I am able to see, I look out towards where the village lies ahead.{/i}"
     
     "{i}Our home is not too far from the village.{/i}"
     
@@ -246,12 +246,12 @@ label forge_axe:
             "{i}I pull out my knife but Vihaan stops me and hands me a dull, pointed tool.{/i}"
         "Cool it off.":
             $ axepoints -= 1
-            "Wait, isn't metal more malleable when it's heated?"
-            "I'm pretty sure I need to shape this thing."
-            "I'll try putting a hole in it for the handle."
-    "I attack one side of the metal to wear a hole through it."
+            "{i}Wait, isn't metal more malleable when it is heated?{/i}"
+            "{i}I am pretty sure I need to shape this thing.{/i}"
+            "{i}I will try putting a hole in it for the handle.{/i}"
+    "{i}I attack one side of the metal to wear a hole through it.{/i}"
     menu forge_axe2:
-        "Phew, that's done. What's next?"
+        "{i}Okay, that is done. What is next?{/i}"
         "Tape the head to a stick.":
             $ axepoints -= 2
             d "Hey, do you have any tape?"
@@ -261,17 +261,17 @@ label forge_axe:
         "Dinner?" if dinner:
             $ dinner = False
             $ axepoints -= 1
-            "I'm so hungry."
-            "I wonder what Saynni wants to eat tonight?"
+            "{i}I am so hungry...{/i}"
+            "{i}I wonder what Saynni wants to eat tonight?{/i}"
             v "Stop daydreaming!"
-            "Crap!"
+            "Sorry!"
             jump forge_axe2
         "Hammer head.":
             $ axepoints += 1
-            "I use a hammer to flatten the other side of the block."
-            "This takes forever!"
-    d "There! I'm done!"
-    "The metal is lopsided and I don't think the hole for the handle is straight."
+            "{i}I use a hammer to flatten the other side of the block.{/i}"
+            "{i}This takes forever!{/i}"
+    d "There! I am done!"
+    "{i}The metal is lopsided and I don't think the hole for the handle is straight.{/i}"
     v "Hmmm...."
     if axepoints == 5:
         v "Fantastic!"
