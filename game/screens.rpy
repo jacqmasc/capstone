@@ -552,7 +552,13 @@ screen about():
             if gui.about:
                 text "[gui.about!t]\n"
 
-            text _("Made with {a=https://www.renpy.org/}Ren'Py{/a} [renpy.version_only].\n\n[renpy.license!t]")
+            text _("Made with {a=https://www.renpy.org/}Ren'Py{/a} [renpy.version_only].\n\n[renpy.license!t]\n")
+            
+            text _("Dragon Wife is written by Jacqueline Mascenik and Kelly MacDougall.\n")
+            
+            text _("Art is by Oliver Griffiths and Otter McKilbourne.\n")
+            
+            text _("Music by {a=http://visager.us/video-game-audio/}Visager{/a}.")
 
 
 ## This is redefined in options.rpy to add text to the about screen.

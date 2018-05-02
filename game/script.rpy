@@ -32,6 +32,7 @@ label start:
 
     show diana happy at left
     
+    play music "roots.mp3"
 
     "{i}This is it. Our new home. Saynni is here with me, but she seems... Uncomfortable.{/i}"
     
@@ -52,8 +53,6 @@ label start:
             
 label moment:
     
-    d "They saw you for only a moment!"
-    
     s "A moment is enough for them to know I am a dragon."
     
     s "What I am is not exactly subtle."
@@ -63,8 +62,6 @@ label moment:
     jump nobattles
     
 label warm:
-    
-    d "I'm sure they will warm up to you in time"
     
     s "I doubt that. The war only recently came to an end..."
     
@@ -144,7 +141,7 @@ label skulls:
     
 label goodbyes:
     
-    d "I will get you those wildflowers."
+    d "I'll get you those wildflowers."
     
     d "Though, I might have to get them on my way back."
     
@@ -163,7 +160,11 @@ label goodbyes:
     
     "{i}With our goodbyes said, I head out from the darkness of our new home and squint due to the brightness of the sun.{/i}"
     
+    stop music fadeout 1.0
+    
     scene black
+    
+    play music "homedeparture.mp3"
     
     "{i}Once I am able to see, I look out towards where the village lies ahead.{/i}"
     
@@ -177,17 +178,21 @@ label goodbyes:
     
     "{i}After asking around I learned of some points of interest. Where should I go?{/i}"
     
+    stop music fadeout 1.0
+    
     jump nav_menu
 
 label blacksmith:
     $ cur_loc = "blacksmith"
     scene bg blacksmith
+    play music "rainyascent.mp3"
     if not met_shitij:
         call impressblacksmith from _call_impressblacksmith
     else:
         show shitij nuetral at right
-        sh "Can't get enough of my handsome face? Come back tomorrow morning. Bright and early!"
+        v "Can't get enough of my handsome face? Come back tomorrow morning. Bright and early!"
     jump nav_menu
+    stop music fadeout 1.0
 
 label impressblacksmith:
     show diana happy at left
@@ -286,6 +291,7 @@ label forge_axe:
 label church:
     $ cur_loc = "church"
     scene bg church
+    play music "hiddengrotto.mp3"
     if met_andy:
         show diana happy at left
         show andy happy at right
@@ -301,7 +307,7 @@ label church:
         d "Are you the mayor?"
         a "What? No! I'm Andy. The mayor is Miss Jundiel. She hasn't been dismissed from the war yet."
         d "So you're ruling in her place?"
-        a "Well... most of the council had to fight in the war, and there hasn't been a vote for new members yet."
+        a "Well... Most of the council had to fight in the war, and there hasn't been a vote for new members yet."
         a "So you could say I'm one of the three 'rulers' right now."
         d "Cool thing Mister Ruler. I have some questions."
     menu ask_andy:
@@ -317,7 +323,7 @@ label church:
             d "So you're a priest or something?"
             a "No, I'm just a passionate follower."
             d "What do you do all day?"
-            a "I guide people along the path of--"
+            a "I guide people along the path of --"
             d "So you're a priest."
             a "...{w} I believe the organized religion around him would take offense to that."
             a "Call me a counseler if you must."
@@ -337,12 +343,15 @@ label church:
         "That's all.":
             d "That's all for now. Thank you!"
             a "I'm always happy to help."
+    
     $ met_andy = True
     jump nav_menu
+    stop music fadeout 1.0
 
 label library:
     $ cur_loc = "library"
     scene bg library
+    play music "inthebranches.mp3"
     show diana happy at left
     "{i}Did someone repurpose their house?{/i}"
     "{i}The sign outside said this was a library, but it looks more like a used book store...{/i}"
@@ -363,7 +372,7 @@ label library:
     "{i}Before I can open my mouth to make a remark, the person from before interrupts.{/i}"
     hide keein
     show librarian nuetral at right
-    ki "... Keein. This is a library, do not make a scene."
+    ki "... Keein. This is a library. Do not make a scene."
     hide librarian nuetral
     show keein nuetral at right
     k "..."
@@ -372,23 +381,86 @@ label library:
     show librarian nuetral at right
     ki "... That was Keein. He is our resident wizard. He is usually like that."
     ki "I am Kioli. I am the head librarian, so even he has to listen to me here."
-    d "I see..."
+    d "I see... Thank you for the explanation."
     "{i}I keep my voice quieter than earlier, and eventually the others in the library go back to their books.{/i}"
+    "{i}While Kioli seems friendly enough after a few words with them, I still feel a little awkward after that moment with Keein.{/i}"
+    "{i}I decide to leave for now.{/i}"
     hide librarian
     
     $ met_keein = True
     jump nav_menu
+    stop music fadeout 1.0
 
 label home:
     $ cur_loc = "home"
-    scene bg cave
-    if met_shitij and met_andy:
-        d "I picked up some wildflowers."
+    if met_shitij and met_andy and met_keein:
+        hide diana happy
+        scene black
+        play music "homedeparture.mp3"
+        
+        "{i}I've been out awhile...{/i}"
+        "{i}I should head home.{/i}"
+        "{i}... Though, wasn't there something else I was supposed to do?{/i}"
+        
+        menu:
+
+            "Remember to pick wildflowers.":
+                jump remember
+
+            "Forget to pick wildflowers.":
+                jump forget
+            
+        label remember:
+        "{i}That's right! Saynni wanted wildflowers to decorate the cave with.{/i}"
+        "{i}On my way back home I pick up some wildflowers for her.{/i}"
+        stop music fadeout 1.0
+        scene bg cave
+        play music "roots.mp3"
+        show diana happy at left
+        d "Saynni, I'm home!"
+        show saynni nuetral at right
+        s "Welcome home!"
+        s "Oh! You remembered to pick up the wildflowers for me!"
+        s "Now, I can decorate the cave with them tomorrow. Thank you, my love!"
+        d "You're welcome! You're also looking at the village blacksmith's new apprentice!"
+        s "Hah! I knew you would be. I even caught your favorite meal to celebrate."
+        d "You're the best! Let's eat."
+        stop music fadeout 1.0
+        return
+        
+        label forget:
+        "{i}Nothing is coming to mind...{/i}"
+        "{i}I must have forgotten.{/i}"
+        "{i}I just head home.{/i}"
+        stop music fadeout 1.0
+        scene bg cave
+        play music "roots.mp3"
+        show diana happy at left
+        d "Saynni, I'm home!"
+        show saynni nuetral at right
+        s "Welcome home!"
+        s "Diana! Did you forget the wildflowers for me?"
+        "{i}Shoot! I forgot that Saynni wanted wildflowers to decorate the cave with.{/i}"
+        d "I forgot..."
+        s "I was going to decorate with them tomorrow..."
+        s "Oh, well. That's alright."
+        s "I can get them myself tomorrow."
+        "{i}Though she may say that it's alright, I can tell that she is disappointed that I forgot...{/i}"
+        d "At least I got the apprenticeship with that blacksmith?" 
+        s "I knew you would... I even caught your favorite meal to celebrate."
+        "{i}Now I definitely feel guilty that I forgot the wildflowers...{/i}"
+        "{i}I will have to make it up to her in the future.{/i}"
+        "You're the best! Let's eat."
+        stop music fadeout 1.0
         return
     else:
-        "{i}Looks like Saynni is asleep...{/i}"
+        scene bg cave
+        play music "roots.mp3"
+        "{i}Looks like Saynni's asleep...{/i}"
         "{i}There's not much to do around here until she is awake. I'll head back to town.{/i}"
+        
         jump nav_menu
+        stop music fadeout 1.0
 
 
 menu nav_menu:
